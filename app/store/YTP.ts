@@ -9,7 +9,7 @@ type CurrentPlayingTypes = {
   singer: string;
 } | null
 
-type QueuesTypes =
+export type QueuesTypes =
   | {
     videoId: string;
     queue?: number;

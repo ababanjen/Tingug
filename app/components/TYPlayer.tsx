@@ -20,7 +20,6 @@ const TYPlayer = () => {
     const newQueues: any = queues?.filter(
       (item) => item.queue !== currentPlaying?.queue
     );
-    console.log({ nextQueue });
     if (nextQueue) {
       const nextQueued: any = queues
         ? queues?.find((_, key) => key === nextQueue)
@@ -41,6 +40,11 @@ const TYPlayer = () => {
 
   const onError = (error: any) => {
     console.error("YouTube Player Error:", error);
+    const removeErrorQueue: any = queues?.filter(
+      (item) => item.queue !== currentPlaying?.queue
+    );
+    setQueues(removeErrorQueue);
+    setCurrentPlaying(null);
   };
   return (
     <div>
