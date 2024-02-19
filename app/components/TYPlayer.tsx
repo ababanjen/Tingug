@@ -11,7 +11,7 @@ const TYPlayer = () => {
     setQueues,
     rScores,
     setRScores,
-    setFinalScore
+    setFinalScore,
   } = useTYPlayerStore();
   const onRollScoreBoard = useScore();
 
@@ -30,20 +30,17 @@ const TYPlayer = () => {
       (item) => item.queue !== currentPlaying?.queue
     );
     onRollScoreBoard();
-    setTimeout(
-      () => {
-        if (nextQueue) {
-          const nextQueued: any = queues
-            ? queues?.find((_, key) => key === nextQueue)
-            : null;
-          setCurrentPlaying({ ...nextQueued, queue: nextQueue });
-        }
-        setQueues(newQueues);
-        setRScores(0);
-        setFinalScore(false)
-      },
-      15000,
-    );
+    setTimeout(() => {
+      if (nextQueue) {
+        const nextQueued: any = queues
+          ? queues?.find((_, key) => key === nextQueue)
+          : null;
+        setCurrentPlaying({ ...nextQueued, queue: nextQueue });
+      }
+      setQueues(newQueues);
+      setRScores(0);
+      setFinalScore(false);
+    }, 15000);
   };
 
   const opts = {
