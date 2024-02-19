@@ -1,10 +1,19 @@
 import YouTube from "react-youtube";
 import { isNumber } from "lodash";
 import { useTYPlayerStore } from "../store/YTP";
+import useScore from "../hooks/useScore";
 
 const TYPlayer = () => {
-  const { currentPlaying, setCurrentPlaying, queues, setQueues } =
-    useTYPlayerStore();
+  const {
+    currentPlaying,
+    setCurrentPlaying,
+    queues,
+    setQueues,
+    rScores,
+    setRScores,
+    setFinalScore
+  } = useTYPlayerStore();
+  const onRollScoreBoard = useScore();
 
   const onReady = (event: any) => {
     // Access the player instance
@@ -20,14 +29,21 @@ const TYPlayer = () => {
     const newQueues: any = queues?.filter(
       (item) => item.queue !== currentPlaying?.queue
     );
-    if (nextQueue) {
-      const nextQueued: any = queues
-        ? queues?.find((_, key) => key === nextQueue)
-        : null;
-      console.log({ nextQueued });
-      setCurrentPlaying({ ...nextQueued, queue: nextQueue });
-    }
-    setQueues(newQueues);
+    onRollScoreBoard();
+    setTimeout(
+      () => {
+        if (nextQueue) {
+          const nextQueued: any = queues
+            ? queues?.find((_, key) => key === nextQueue)
+            : null;
+          setCurrentPlaying({ ...nextQueued, queue: nextQueue });
+        }
+        setQueues(newQueues);
+        setRScores(0);
+        setFinalScore(false)
+      },
+      15000,
+    );
   };
 
   const opts = {
@@ -46,9 +62,10 @@ const TYPlayer = () => {
     setQueues(removeErrorQueue);
     setCurrentPlaying(null);
   };
+
   return (
-    <div>
-      {currentPlaying && (
+    <div className="">
+      {currentPlaying && rScores <= 0 && (
         <YouTube
           videoId={currentPlaying.videoId}
           onReady={onReady}
