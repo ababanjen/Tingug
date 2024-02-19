@@ -2,6 +2,7 @@ import YouTube from "react-youtube";
 import { isNumber } from "lodash";
 import { useTYPlayerStore } from "../store/YTP";
 import useScore from "../hooks/useScore";
+import MusicIcon from "./icons/music";
 
 const TYPlayer = () => {
   const {
@@ -44,8 +45,8 @@ const TYPlayer = () => {
   };
 
   const opts = {
-    height: "390",
-    width: "640",
+    height: "690",
+    width: "900",
     playerVars: {
       autoplay: 1,
     },
@@ -61,8 +62,8 @@ const TYPlayer = () => {
   };
 
   return (
-    <div className="">
-      {currentPlaying && rScores <= 0 && (
+    <div className="w-full px-4">
+      {currentPlaying && rScores <= 0 ? (
         <YouTube
           videoId={currentPlaying.videoId}
           onReady={onReady}
@@ -70,6 +71,13 @@ const TYPlayer = () => {
           onEnd={onEnd}
           opts={opts}
         />
+      ) : (
+        <div className="flex w-full justify-center flex-col">
+          <span className="flex justify-center opacity-[0.9]">
+            <MusicIcon />
+          </span >
+          <span className="italic text-base flex justify-center text-gray-500">Nothing to play...</span>
+        </div>
       )}
     </div>
   );

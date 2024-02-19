@@ -23,11 +23,13 @@ type TYPlayerStore = {
   queues: QueuesTypes;
   rScores: number;
   finalScore:boolean;
+  showSearch:boolean;
   setList: (data: SearchListTypes) => void;
   setCurrentPlaying: (data: CurrentPlayingTypes) => void;
   setQueues: (data: QueuesTypes) => void;
   setRScores: (data: number) => void;
   setFinalScore: (data: boolean) => void;
+  setShowSearch: (data: boolean) => void;
 };
 
 export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
@@ -36,10 +38,12 @@ export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
   queues: null,
   rScores: 0,
   finalScore:false,
+  showSearch:false,
   setList: (data: SearchListTypes) => set(() => ({ list: data })),
   setCurrentPlaying: (data: CurrentPlayingTypes) =>
     set(() => ({ currentPlaying: data })),
   setQueues: (data: QueuesTypes) => set(() => ({ queues: data })),
   setRScores: (data: number) => set(() => ({ rScores: data })),
   setFinalScore:(data: boolean) => set(() => ({ finalScore: data })),
+  setShowSearch:(data: boolean) => set(() => ({ showSearch: data })),
 }));
