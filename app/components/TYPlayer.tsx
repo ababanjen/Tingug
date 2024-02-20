@@ -47,18 +47,12 @@ const TYPlayer = () => {
 
   useEffect(() => {
     setOpts({
-      height: "690",
-      width:
-        window.innerWidth <= 390
-          ? "350"
-          : window.innerWidth >= 391 && window.innerWidth <= 790
-          ? "730"
-          : "900",
       playerVars: {
         autoplay: 1,
       },
     });
   }, []);
+
 
   const onError = (error: any) => setError(error);
 
@@ -70,7 +64,6 @@ const TYPlayer = () => {
     setCurrentPlaying(removeErrorQueue[0]);
     setError(null);
   };
-
   return (
     <div className="w-full lg:px-4 overflow-hidden">
       {currentPlaying && rScores <= 0 && !error ? (
@@ -80,6 +73,7 @@ const TYPlayer = () => {
           onError={onError}
           onEnd={onEnd}
           opts={opts}
+          iframeClassName="w-full lg:h-[40rem]"
         />
       ) : (
         <div className="flex w-full justify-center flex-col">
