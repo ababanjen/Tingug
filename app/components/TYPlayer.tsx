@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { isNumber } from "lodash";
 import { useTYPlayerStore } from "../store/YTP";
@@ -8,6 +8,7 @@ import TroubleIcon from "./icons/trouble";
 
 const TYPlayer = () => {
   const [error, setError] = useState<any>(null);
+  const [opts, setOpts] = useState({});
   const {
     currentPlaying,
     setCurrentPlaying,
@@ -44,18 +45,20 @@ const TYPlayer = () => {
     }, 20000);
   };
 
-  const opts = {
-    height: "690",
-    width:
-      window.innerWidth <= 390
-        ? "350"
-        : window.innerWidth >= 391 && window.innerWidth <= 790
-        ? "730"
-        : "900",
-    playerVars: {
-      autoplay: 1,
-    },
-  };
+  useEffect(() => {
+    setOpts({
+      height: "690",
+      width:
+        window.innerWidth <= 390
+          ? "350"
+          : window.innerWidth >= 391 && window.innerWidth <= 790
+          ? "730"
+          : "900",
+      playerVars: {
+        autoplay: 1,
+      },
+    });
+  }, []);
 
   const onError = (error: any) => setError(error);
 
