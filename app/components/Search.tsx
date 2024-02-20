@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isNull } from "lodash";
 import { useTYPlayerStore } from "../store/YTP";
 import useOnSelectPlay from "../hooks/useOnSelectPlay";
@@ -12,6 +12,13 @@ const Search = () => {
   const onSelectPlay = useOnSelectPlay();
 
   const [search, setSearch] = useState<string>("");
+  const [reservedSuccess, setReservedSuccess] = useState<any>(null);
+
+  useEffect(() => {
+    if (reservedSuccess) {
+      setTimeout(() => setReservedSuccess(null), 3000);
+    }
+  }, [reservedSuccess]);
 
   const addToQueuee = (item: any) => {
     const queue = isNull(queues) ? 0 : queues.length;
@@ -20,6 +27,7 @@ const Search = () => {
     const newReserved = { singer: "unknown", videoId, title, queue };
     const newQueues = queues ? [...queues, newReserved] : [newReserved];
     setQueues(newQueues);
+    setReservedSuccess(item);
     if (!queues) {
       onSelectPlay({ videoId, title, queue });
       return;
@@ -44,6 +52,11 @@ const Search = () => {
 
   return (
     <div className="flex flex-col gap-2 p-4 justify-center bg-white absolute w-full">
+      {reservedSuccess && (
+        <span className="rounded right-4 top-4 p-2 text-sm fixed bg-green-200 border-green-300 text-gray-600">
+          Reserved! <span className="font-semibold italic">{reservedSuccess?.snippet.title}</span>
+        </span>
+      )}
       <span
         className="text-sm hover:underline cursor-pointer"
         onClick={handleBack}

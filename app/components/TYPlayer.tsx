@@ -39,13 +39,9 @@ const TYPlayer = () => {
       setRScores(0);
       setFinalScore(false);
       if (nextQueue) {
-        const nextQueued: any = queues
-          ? queues?.find((_, key) => key === nextQueue)
-          : null;
-        console.log({ newQueues, nextQueued });
         setCurrentPlaying(newQueues[0]);
       }
-    }, 15000);
+    }, 23000);
   };
 
   const opts = {
@@ -63,7 +59,6 @@ const TYPlayer = () => {
       ?.filter((item) => item.queue !== currentPlaying?.queue)
       .map((i: any, key: any) => ({ ...i, queue: key }));
     setQueues(removeErrorQueue);
-    console.log({ removeErrorQueue });
     setCurrentPlaying(removeErrorQueue[0]);
     setError(null);
   };

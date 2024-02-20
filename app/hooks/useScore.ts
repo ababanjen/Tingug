@@ -37,7 +37,6 @@ const useScore = () => {
     );
 
     setTimeout(function () {
-      console.info("SCORE:", rScores);
       setFinalScore(true);
     }, 8000);
   };
