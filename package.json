@@ -2,6 +2,7 @@
   "name": "ykaraoke",
   "version": "0.1.0",
   "private": true,
+  "author": "Jen Ababan",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
