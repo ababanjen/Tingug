@@ -41,7 +41,7 @@ const Search = () => {
   const fetchYT = async () => {
     const res = await axios({
       method: "GET",
-      url: `${process.env.API}?part=snippet&q=${search} karaoke&maxResults=10&key=${process.env.APIKEY}`,
+      url: `${process.env.API}?part=snippet&q=${search} karaoke&maxResults=50&key=${process.env.APIKEY}`,
     });
     setList(res.data.items);
   };
