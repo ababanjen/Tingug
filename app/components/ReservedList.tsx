@@ -10,7 +10,7 @@ const ReservedList = () => {
   const onSelectPlay = useOnSelectPlay();
 
   return (
-    <div className="flex overflow-auto h-[40rem] max-h-[40rem] w-full max-w-[30rem] flex-col gap-4 border p-2 relative ">
+    <div className="flex overflow-auto h-[40rem] max-h-[40rem] w-full lg:max-w-[30rem] flex-col gap-4 border p-2 relative ">
       <div className="flex justify-between">
         <span className="font-semibold text-xl italic">Reserved songs</span>
         <span

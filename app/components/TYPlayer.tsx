@@ -75,7 +75,7 @@ const TYPlayer = () => {
         />
       ) : (
         <div className="flex w-full justify-center flex-col">
-          <span className="flex justify-center opacity-[0.9]">
+          <span className="flex justify-center opacity-[0.9] w-full">
             {error ? <TroubleIcon /> : <MusicIcon />}
           </span>
           <span className="italic text-base flex justify-center text-gray-500">
