@@ -1,10 +1,13 @@
+import { useState } from "react";
 import YouTube from "react-youtube";
 import { isNumber } from "lodash";
 import { useTYPlayerStore } from "../store/YTP";
 import useScore from "../hooks/useScore";
 import MusicIcon from "./icons/music";
+import TroubleIcon from "./icons/trouble";
 
 const TYPlayer = () => {
+  const [error, setError] = useState<any>(null);
   const {
     currentPlaying,
     setCurrentPlaying,
@@ -27,20 +30,21 @@ const TYPlayer = () => {
     const nextQueue = isNumber(currentPlaying?.queue)
       ? currentPlaying?.queue + 1
       : null;
-    const newQueues: any = queues?.filter(
-      (item) => item.queue !== currentPlaying?.queue
-    );
+    const newQueues: any = queues
+      ?.filter((item) => item.queue !== currentPlaying?.queue)
+      .map((i: any, key: any) => ({ ...i, queue: key }));
     onRollScoreBoard();
     setTimeout(() => {
+      setQueues(newQueues);
+      setRScores(0);
+      setFinalScore(false);
       if (nextQueue) {
         const nextQueued: any = queues
           ? queues?.find((_, key) => key === nextQueue)
           : null;
-        setCurrentPlaying({ ...nextQueued, queue: nextQueue });
+        console.log({ newQueues, nextQueued });
+        setCurrentPlaying(newQueues[0]);
       }
-      setQueues(newQueues);
-      setRScores(0);
-      setFinalScore(false);
     }, 15000);
   };
 
@@ -52,18 +56,21 @@ const TYPlayer = () => {
     },
   };
 
-  const onError = (error: any) => {
-    console.error("YouTube Player Error:", error);
-    const removeErrorQueue: any = queues?.filter(
-      (item) => item.queue !== currentPlaying?.queue
-    );
+  const onError = (error: any) => setError(error);
+
+  const playNext = () => {
+    const removeErrorQueue: any = queues
+      ?.filter((item) => item.queue !== currentPlaying?.queue)
+      .map((i: any, key: any) => ({ ...i, queue: key }));
     setQueues(removeErrorQueue);
-    setCurrentPlaying(null);
+    console.log({ removeErrorQueue });
+    setCurrentPlaying(removeErrorQueue[0]);
+    setError(null);
   };
 
   return (
     <div className="w-full px-4">
-      {currentPlaying && rScores <= 0 ? (
+      {currentPlaying && rScores <= 0 && !error ? (
         <YouTube
           videoId={currentPlaying.videoId}
           onReady={onReady}
@@ -74,9 +81,25 @@ const TYPlayer = () => {
       ) : (
         <div className="flex w-full justify-center flex-col">
           <span className="flex justify-center opacity-[0.9]">
-            <MusicIcon />
-          </span >
-          <span className="italic text-base flex justify-center text-gray-500">Nothing to play...</span>
+            {error ? <TroubleIcon /> : <MusicIcon />}
+          </span>
+          <span className="italic text-base flex justify-center text-gray-500">
+            {error ? (
+              <span className="flex flex-col justify-center">
+                {`OH NO! LOOKS LIKE WE'RE HAVING TROUBLE PLAYING...`}
+                <span className="flex gap-2 justify-center">
+                  <span
+                    onClick={playNext}
+                    className="px-4 py-2 flex justify-center rounded bg-blue-950 text-white hover:bg-blue-600 cursor-pointer"
+                  >
+                    Play next song
+                  </span>
+                </span>
+              </span>
+            ) : (
+              "Nothing to play..."
+            )}
+          </span>
         </div>
       )}
     </div>

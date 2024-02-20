@@ -4,7 +4,7 @@ import Search from "./Search";
 import SearchIcon from "./icons/search";
 
 const ReservedList = () => {
-  const { queues, setShowSearch } = useTYPlayerStore();
+  const { queues, setShowSearch, currentPlaying } = useTYPlayerStore();
   const onSelectPlay = useOnSelectPlay();
 
   return (
@@ -31,7 +31,7 @@ const ReservedList = () => {
           >
             <span className="font-semibold text-base">{queue.title}</span>
             <span className="text-gray-400 italic">{queue.singer}</span>
-            {!key && (
+            {currentPlaying?.queue == key && (
               <span className="text-gray-400 italic text-sm">
                 Now playing...
               </span>
