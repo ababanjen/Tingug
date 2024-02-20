@@ -68,7 +68,7 @@ const Search = () => {
       </span>
       <div className="flex gap-2 w-full top-0">
         <input
-          className="border w-full p-2 rounded"
+          className="border w-full p-2 rounded text-black"
           type="text"
           value={search}
           onChange={handleChange}
