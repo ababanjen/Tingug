@@ -51,21 +51,24 @@ const Search = () => {
   if (!showSearch) return null;
 
   return (
-    <div className="flex flex-col gap-2 p-4 justify-center bg-white absolute w-full">
+    <div className="flex flex-col gap-2 p-4 justify-center bg-black absolute w-full">
       {reservedSuccess && (
         <span className="rounded right-4 top-4 p-2 text-sm fixed bg-green-200 border-green-300 text-gray-600">
-          Reserved! <span className="font-semibold italic">{reservedSuccess?.snippet.title}</span>
+          Reserved!{" "}
+          <span className="font-semibold italic">
+            {reservedSuccess?.snippet.title}
+          </span>
         </span>
       )}
       <span
-        className="text-sm hover:underline cursor-pointer"
+        className="text-sm hover:underline cursor-pointer w-max"
         onClick={handleBack}
       >
         back
       </span>
-      <div className="flex gap-2  bg-white w-full top-0">
+      <div className="flex gap-2 w-full top-0">
         <input
-          className="border w-full"
+          className="border w-full p-2 rounded"
           type="text"
           value={search}
           onChange={handleChange}
@@ -81,21 +84,18 @@ const Search = () => {
       </div>
       <ul className="flex p-4 gap-2 items-start flex-col justify-center w-full  overflow-scroll">
         {list?.map((item, key) => (
-          <li
-            className="flex gap-2 justify-start items-center"
-            key={item.id.videoId + key}
-          >
-            <div className="flex gap-2 justify-start items-center">
-              <div className="w-[5rem] overflow-hidden">
+          <li key={item.id.videoId + key} className="py-2 hover:bg-[#e18a02] border-b">
+            <div className="flex gap-2 justify-start items-center overflow-hidden">
+              <div className="overflow-hidden rounded w-20">
                 <Image
                   width={100}
-                  height={100}
+                  height={50}
                   alt="prev"
                   src={item.snippet.thumbnails.default.url}
                   loader={() => item.snippet.thumbnails.default.url}
                 />
               </div>
-              <div className="flex flex-col w-[90%]">
+              <div className="flex flex-col w-[20rem]">
                 <span className="break-words font-semibold text-sm">
                   {item.snippet.title}
                 </span>

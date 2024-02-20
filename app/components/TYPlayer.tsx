@@ -41,12 +41,17 @@ const TYPlayer = () => {
       if (nextQueue) {
         setCurrentPlaying(newQueues[0]);
       }
-    }, 23000);
+    }, 20000);
   };
 
   const opts = {
     height: "690",
-    width: "900",
+    width:
+      window.innerWidth <= 390
+        ? "350"
+        : window.innerWidth >= 391 && window.innerWidth <= 790
+        ? "730"
+        : "900",
     playerVars: {
       autoplay: 1,
     },
@@ -64,7 +69,7 @@ const TYPlayer = () => {
   };
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full lg:px-4 overflow-hidden">
       {currentPlaying && rScores <= 0 && !error ? (
         <YouTube
           videoId={currentPlaying.videoId}
@@ -78,14 +83,14 @@ const TYPlayer = () => {
           <span className="flex justify-center opacity-[0.9] w-full">
             {error ? <TroubleIcon /> : <MusicIcon />}
           </span>
-          <span className="italic text-base flex justify-center text-gray-500">
+          <span className="italic text-base flex justify-center">
             {error ? (
               <span className="flex flex-col justify-center">
                 {`OH NO! LOOKS LIKE WE'RE HAVING TROUBLE PLAYING...`}
                 <span className="flex gap-2 justify-center">
                   <span
                     onClick={playNext}
-                    className="px-4 py-2 flex justify-center rounded bg-blue-950 text-white hover:bg-blue-600 cursor-pointer"
+                    className="px-4 py-2 flex justify-center rounded bg-blue-950  hover:bg-blue-600 cursor-pointer"
                   >
                     Play next song
                   </span>

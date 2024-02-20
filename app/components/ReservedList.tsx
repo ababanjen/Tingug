@@ -3,15 +3,27 @@ import useOnSelectPlay from "../hooks/useOnSelectPlay";
 import { useTYPlayerStore } from "../store/YTP";
 import Search from "./Search";
 import SearchIcon from "./icons/search";
+import CloseIcon from "./icons/close";
 
 const ReservedList = () => {
-  const { queues, setShowSearch, currentPlaying, showSearch } =
+  const { queues, setQueues, setShowSearch, currentPlaying, showSearch } =
     useTYPlayerStore();
   const onSelectPlay = useOnSelectPlay();
 
+  const handleRemoveQueue = (e: any, queue: any) => {
+    e.stopPropagation();
+    const newQueues: any = queues?.filter((q, k) => k !== queue.key);
+    setQueues(newQueues);
+  };
+
+  const handleSelectQueue = (queue: any, key: number) => {
+    if (currentPlaying?.queue == key) return;
+    onSelectPlay({ ...queue, queue: key });
+  };
+
   return (
-    <div className="flex overflow-auto h-[40rem] max-h-[40rem] w-full lg:max-w-[30rem] flex-col gap-4 border p-2 relative ">
-      <div className="flex justify-between">
+    <div className="flex overflow-auto h-[40rem] max-h-[40rem] w-full lg:max-w-[30rem] flex-col gap-4 border relative rounded">
+      <div className="flex justify-between p-2">
         <span className="font-semibold text-xl italic">Reserved songs</span>
         <span
           className="cursor-pointer italic text-sm flex gap-2"
@@ -31,22 +43,28 @@ const ReservedList = () => {
               key={key}
               className={clsx({
                 "flex flex-col border-b mb-2 hover:bg-gray-300 p-2": true,
-                "bg-gray-200": currentPlaying?.queue === key,
+                "bg-[#e18a02]": currentPlaying?.queue === key,
                 "cursor-pointer": currentPlaying?.queue != key,
               })}
-              onClick={() =>
-                currentPlaying?.queue == key
-                  ? null
-                  : onSelectPlay({ ...queue, queue: key })
-              }
+              onClick={() => handleSelectQueue(queue, key)}
             >
               <span className="font-semibold text-base">{queue.title}</span>
-              <span className="text-gray-400 italic">{queue.singer}</span>
-              {currentPlaying?.queue === key && (
-                <span className="text-gray-400 italic text-sm">
-                  Now playing...
-                </span>
-              )}
+              <div className="flex gap-2 justify-between items-center">
+                <div className="flex flex-col gap-2">
+                  <span className=" italic">{queue.singer}</span>
+                  {currentPlaying?.queue === key && (
+                    <span className=" italic text-sm">Now playing...</span>
+                  )}
+                </div>
+                {currentPlaying?.queue != key && (
+                  <span
+                    className="text-xs cursor-pointer text-red-300 hover:text-red-500"
+                    onClick={(e) => handleRemoveQueue(e, { ...queue, key })}
+                  >
+                    <CloseIcon />
+                  </span>
+                )}
+              </div>
             </li>
           ))}
         </ul>

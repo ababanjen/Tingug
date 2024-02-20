@@ -10,11 +10,22 @@ const ScoreBoard = () => {
   const mid = rScores >= 50 && rScores < 80;
   const high = rScores > 80;
 
-  const voice = low ? "low.m4a" : mid ? "mid.m4a" : "high.m4a";
+  const voice = low ? "low.mp3" : mid ? "high.mp3" : "high.mp3";
+  const espVoiceOver = high ? "xhigh.mp3" : rScores === 69 ? "yamete.mp3" : false;
   return (
     <div className="bg-black z-10 bg-opacity-80 absolute w-full h-max flex justify-center">
       {finalScore && (
-        <Confetti width={window.innerWidth} height={window.innerHeight} />
+        <>
+          {espVoiceOver && (
+            <audio controls autoPlay className="opacity-0 absolute">
+              <source src={`/${espVoiceOver}`} type="audio/mpeg"></source>
+            </audio>
+          )}
+          <audio controls autoPlay className="opacity-0 absolute">
+            <source src={`/${voice}`} type="audio/mpeg"></source>
+          </audio>
+          <Confetti width={window.innerWidth} height={window.innerHeight} />
+        </>
       )}
 
       <span
@@ -27,16 +38,6 @@ const ScoreBoard = () => {
       >
         {rScores}
       </span>
-      {finalScore && (
-        <>
-          <audio controls autoPlay className="opacity-0 absolute">
-            <source src={`/${voice}`} type="audio/mpeg"></source>
-          </audio>
-          <audio controls autoPlay className="opacity-0 absolute">
-            <source src={'/score.mp3'} type="audio/mpeg"></source>
-          </audio>
-        </>
-      )}
     </div>
   );
 };
