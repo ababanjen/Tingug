@@ -48,6 +48,11 @@ const Search = () => {
 
   const handleBack = () => setShowSearch(false);
 
+  const onKeyDown = ({ keyCode }: { keyCode: number }) => {
+    if (keyCode === 13) fetchYT();
+    return;
+  };
+
   if (!showSearch) return null;
 
   return (
@@ -73,6 +78,7 @@ const Search = () => {
           value={search}
           onChange={handleChange}
           placeholder="Search title"
+          onKeyDown={onKeyDown}
         />
         <button
           type="submit"
@@ -84,12 +90,15 @@ const Search = () => {
       </div>
       <ul className="flex p-4 gap-2 items-start flex-col justify-center w-full  overflow-scroll">
         {list?.map((item, key) => (
-          <li key={item.id.videoId + key} className="py-2 hover:bg-[#e18a02] border-b">
+          <li
+            key={item.id.videoId + key}
+            className="py-2 hover:bg-[#e18a02] border-b"
+          >
             <div className="flex gap-2 justify-start items-center overflow-hidden">
               <div className="overflow-hidden rounded w-20">
                 <Image
                   width={100}
-                  height={50}
+                  height={100}
                   alt="prev"
                   src={item.snippet.thumbnails.default.url}
                   loader={() => item.snippet.thumbnails.default.url}

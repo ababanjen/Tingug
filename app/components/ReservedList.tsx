@@ -24,7 +24,7 @@ const ReservedList = () => {
   return (
     <div className="flex overflow-auto h-[40rem] max-h-[40rem] w-full lg:max-w-[30rem] flex-col gap-4 border relative rounded">
       <div className="flex justify-between p-2">
-        <span className="font-semibold text-xl italic">Reserved songs</span>
+        <span className="font-semibold text-xl italic">{`Reserved songs (${queues?.length ?? 0})`}</span>
         <span
           className="cursor-pointer italic text-sm flex gap-2"
           onClick={() => setShowSearch(true)}
@@ -42,9 +42,9 @@ const ReservedList = () => {
             <li
               key={key}
               className={clsx({
-                "flex flex-col border-b mb-2 hover:bg-gray-300 p-2": true,
+                "flex flex-col border-b mb-2 p-2": true,
                 "bg-[#e18a02]": currentPlaying?.queue === key,
-                "cursor-pointer": currentPlaying?.queue != key,
+                "cursor-pointer hover:bg-gray-300 hover:text-black": currentPlaying?.queue != key,
               })}
               onClick={() => handleSelectQueue(queue, key)}
             >
