@@ -65,7 +65,7 @@ const TYPlayer = () => {
     setError(null);
   };
   return (
-    <div className="w-full lg:px-4 overflow-hidden">
+    <div className="w-full">
       {currentPlaying && rScores <= 0 && !error ? (
         <YouTube
           videoId={currentPlaying.videoId}

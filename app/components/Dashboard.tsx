@@ -1,17 +1,17 @@
 "use client";
-import TYPlayer from "./TYPlayer";
-import ReservedList from "./ReservedList";
-import ScoreBoard from "./ScoreBoard";
+import Header from "./Header";
+import PlayerContainer from "./PlayerContainer";
+import SearhContainer from "./SearchContainer";
 
 const Dashboard = () => {
   return (
-    <div className="relative">
-      <ScoreBoard />
-      <div className="flex gap-2 flex-col lg:flex-row justify-between p-5">
-        <TYPlayer />
-        <ReservedList />
+    <main className="flex flex-col">
+      <Header />
+      <div className="flex gap-2 m-4">
+        <PlayerContainer />
+        <SearhContainer />
       </div>
-    </div>
+    </main>
   );
 };
 
