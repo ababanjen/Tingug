@@ -45,7 +45,6 @@ const SearhContainer = () => {
   const handleChangeTab = (tab: string) => setViewList(tab === "list");
 
   const filterView = (item: any) => {
-    console.log({ viewList });
     if (viewList) return true;
     if (favQueues)
       return favQueues?.some((f: any) => f.id.videoId === item.id.videoId);
@@ -99,7 +98,7 @@ const SearhContainer = () => {
             Search song titles...
           </span>
         )}
-        {(list || favQueues)?.map(
+        {(list ?? favQueues)?.map(
           (item: any, key: number) =>
             filterView(item) && <ItemCard key={key} item={item} />
         )}
