@@ -4,6 +4,7 @@ import { useTYPlayerStore } from "../store/YTP";
 import Search from "./Search";
 import SearchIcon from "./icons/search";
 import CloseIcon from "./icons/close";
+import { useEffect } from "react";
 
 const ReservedList = () => {
   const { queues, setQueues, setShowSearch, currentPlaying, showSearch } =
