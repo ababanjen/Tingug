@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { useTYPlayerStore } from "../store/YTP";
 import ItemCard from "./ItemCard";
 import axios from "axios";
