@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTYPlayerStore } from "../store/YTP";
 import ItemCard from "./ItemCard";
 import axios from "axios";
@@ -10,9 +10,14 @@ const SearhContainer = () => {
   const [search, setSearch] = useState<string>("");
   const [searched, setSearched] = useState<boolean>(false);
   const [viewList, setViewList] = useState<boolean>(true);
+  const [favQueues, setFavQueues] = useState<any>(null);
 
-  const localFavQueues = JSON.parse(localStorage.getItem("favQueues") || '""');
-  const favQueues = isEmpty(localFavQueues) ? null : localFavQueues;
+  useEffect(() => {
+    const localFavQueues = JSON.parse(
+      localStorage.getItem("favQueues") || '""'
+    );
+    setFavQueues(isEmpty(localFavQueues) ? null : localFavQueues);
+  }, []);
 
   const fetchYT = async () => {
     const res = await axios({
@@ -43,7 +48,7 @@ const SearhContainer = () => {
     console.log({ viewList });
     if (viewList) return true;
     if (favQueues)
-      return favQueues.some((f: any) => f.id.videoId === item.id.videoId);
+      return favQueues?.some((f: any) => f.id.videoId === item.id.videoId);
     return false;
   };
 
