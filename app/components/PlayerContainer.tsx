@@ -48,7 +48,7 @@ const PlayerContainer = () => {
         </div>
       )}
       {queues && (
-        <div className="bg-[#F7F7F7] shadow flex w-full px-4 py-2 rounded gap-2">
+        <div className="bg-[#F7F7F7] lg:max-w-[68rem] shadow flex w-full px-4 py-2 rounded gap-2">
           <div className="flex flex-col gap-2">
             <span className="uppercase">next song:</span>
             <ReservedCard item={queues ? queues[1] : null} idx={0} />
