@@ -19,10 +19,10 @@ const PlayerContainer = () => {
 
   const handleStopSong = () => {
     const newQueues: any = queues
-      ?.filter((q) => q.queue !== currentPlaying?.queue)
-      .map((q, k) => ({ ...q, k }));
-    setCurrentPlaying(newQueues[0]);
+      ?.filter((item) => item.queue !== currentPlaying?.queue)
+      .map((i: any, key: any) => ({ ...i, queue: key }));
     setQueues(newQueues);
+    setCurrentPlaying(newQueues[0]);
   };
 
   return (
