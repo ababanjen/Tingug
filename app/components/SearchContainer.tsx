@@ -48,7 +48,7 @@ const SearhContainer = () => {
   };
 
   return (
-    <div className="bg-[#F7F7F7] h-[44rem] overflow-hidden shadow rounded flex flex-col lg:w-[25rem]">
+    <div className="bg-[#F7F7F7] h-64 md:h-96 lg:h-[50rem] lg:max-h-[50rem] overflow-hidden shadow rounded flex flex-col lg:w-[25rem]">
       <div className="px-4 py-2 flex flex-col gap-1">
         <input
           type="text"

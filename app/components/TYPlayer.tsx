@@ -27,6 +27,7 @@ const TYPlayer = () => {
   };
 
   const onEnd = () => {
+    window.scrollTo(0, 0);
     const nextQueue = isNumber(currentPlaying?.queue)
       ? currentPlaying?.queue + 1
       : null;
@@ -52,7 +53,6 @@ const TYPlayer = () => {
       },
     });
   }, []);
-
 
   const onError = (error: any) => setError(error);
 

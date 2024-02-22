@@ -26,7 +26,7 @@ const PlayerContainer = () => {
   };
 
   return (
-    <div className="flex flex-col w-[71%]">
+    <div className="flex flex-col w-full">
       <div className=" border">
         <TYPlayer />
       </div>
