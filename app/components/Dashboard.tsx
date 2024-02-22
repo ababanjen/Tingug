@@ -1,17 +1,23 @@
 "use client";
-import TYPlayer from "./TYPlayer";
-import ReservedList from "./ReservedList";
+import Footer from "./Footer";
+import Header from "./Header";
+import PlayerContainer from "./PlayerContainer";
 import ScoreBoard from "./ScoreBoard";
+import SearhContainer from "./SearchContainer";
+import SuccessAlert from "./SuccessAlert";
 
 const Dashboard = () => {
   return (
-    <div className="relative">
+    <main className="flex flex-col overflow-hidden relative">
       <ScoreBoard />
-      <div className="flex gap-2 flex-col lg:flex-row justify-between p-5">
-        <TYPlayer />
-        <ReservedList />
+      <SuccessAlert />
+      <Header />
+      <div className="flex flex-col lg:flex-row gap-2 m-4">
+        <PlayerContainer />
+        <SearhContainer />
       </div>
-    </div>
+      <Footer />
+    </main>
   );
 };
 

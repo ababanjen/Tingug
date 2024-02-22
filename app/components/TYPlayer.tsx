@@ -23,11 +23,11 @@ const TYPlayer = () => {
   const onReady = (event: any) => {
     // Access the player instance
     const player = event.target;
-    // For example, you can automatically play the video
     player.playVideo();
   };
 
   const onEnd = () => {
+    window.scrollTo(0, 0);
     const nextQueue = isNumber(currentPlaying?.queue)
       ? currentPlaying?.queue + 1
       : null;
@@ -39,6 +39,7 @@ const TYPlayer = () => {
       setQueues(newQueues);
       setRScores(0);
       setFinalScore(false);
+      localStorage.setItem("queues", JSON.stringify(newQueues));
       if (nextQueue) {
         setCurrentPlaying(newQueues[0]);
       }
@@ -53,7 +54,6 @@ const TYPlayer = () => {
     });
   }, []);
 
-
   const onError = (error: any) => setError(error);
 
   const playNext = () => {
@@ -65,7 +65,7 @@ const TYPlayer = () => {
     setError(null);
   };
   return (
-    <div className="w-full lg:px-4 overflow-hidden">
+    <div className="w-full">
       {currentPlaying && rScores <= 0 && !error ? (
         <YouTube
           videoId={currentPlaying.videoId}
@@ -87,7 +87,7 @@ const TYPlayer = () => {
                 <span className="flex gap-2 justify-center">
                   <span
                     onClick={playNext}
-                    className="px-4 py-2 flex justify-center rounded bg-blue-950  hover:bg-blue-600 cursor-pointer"
+                    className="px-4 py-2 flex justify-center text-white mb-3 rounded bg-blue-950  hover:bg-blue-600 cursor-pointer"
                   >
                     Play next song
                   </span>
