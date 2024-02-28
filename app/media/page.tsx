@@ -8,7 +8,7 @@ import SuccessAlert from "../components/common/SuccessAlert";
 
 const Media = () => {
   return (
-    <main className="flex flex-col overflow-hidden relative">
+    <main className="flex flex-col relative">
       <ScoreBoard />
       <SuccessAlert />
       <Header />
