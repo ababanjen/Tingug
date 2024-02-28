@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { isNumber } from "lodash";
-import { useTYPlayerStore } from "../store/YTP";
-import useScore from "../hooks/useScore";
-import MusicIcon from "./icons/music";
-import TroubleIcon from "./icons/trouble";
+import { useTYPlayerStore } from "../../store/YTP";
+import useScore from "../../hooks/useScore";
+import MusicIcon from "../icons/music";
+import TroubleIcon from "../icons/trouble";
 
 const TYPlayer = () => {
   const [error, setError] = useState<any>(null);
@@ -64,7 +64,7 @@ const TYPlayer = () => {
     setCurrentPlaying(removeErrorQueue[0]);
     setError(null);
   };
-  
+
   return (
     <div className="w-full">
       {currentPlaying && rScores <= 0 && !error ? (
@@ -77,25 +77,27 @@ const TYPlayer = () => {
           iframeClassName="w-full lg:h-[40rem]"
         />
       ) : (
-        <div className="flex w-full justify-center flex-col">
-          <span className="flex justify-center opacity-[0.9] w-full">
+        <div className="flex w-full justify-center flex-col p-14 lg:h-[40rem]">
+          <span className="flex justify-center opacity-[0.5] w-full">
             {error ? <TroubleIcon /> : <MusicIcon />}
           </span>
-          <span className="italic text-base flex justify-center">
+          <span className="italic text-base flex justify-center py-6">
             {error ? (
-              <span className="flex flex-col justify-center">
-                {`OH NO! LOOKS LIKE WE'RE HAVING TROUBLE PLAYING...`}
+              <span className="flex flex-col justify-center gap-2">
+                <span className=" opacity-15 uppercase">{`OH NO! LOOKS LIKE WE'RE HAVING TROUBLE PLAYING...`}</span>
                 <span className="flex gap-2 justify-center">
                   <span
                     onClick={playNext}
-                    className="px-4 py-2 flex justify-center text-white mb-3 rounded bg-blue-950  hover:bg-blue-600 cursor-pointer"
+                    className="px-4 py-2 font-light flex justify-center text-white mb-3 rounded bg-blue-950  hover:bg-blue-600 cursor-pointer"
                   >
                     Play next song
                   </span>
                 </span>
               </span>
             ) : (
-              "Nothing to play..."
+              <span className="flex font-light justify-center uppercase opacity-15">
+                {`Looks like you haven't reserved any song`}
+              </span>
             )}
           </span>
         </div>

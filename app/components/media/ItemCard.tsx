@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import HeartIcon from "./icons/heart";
-import { useTYPlayerStore } from "../store/YTP";
-import useOnSelectPlay from "../hooks/useOnSelectPlay";
+import { useTYPlayerStore } from "../../store/YTP";
+import useOnSelectPlay from "../../hooks/useOnSelectPlay";
 import { isEmpty, isNull } from "lodash";
+import HeartIcon from "../icons/heart";
 
 const ItemCard = ({ item }: { item: any }) => {
   const [isFav, setIsFave] = useState<boolean>(false);

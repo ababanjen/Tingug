@@ -1,5 +1,5 @@
 "use client";
-import { useTYPlayerStore } from "../store/YTP";
+import { useTYPlayerStore } from "../../store/YTP";
 import clsx from "clsx";
 import Confetti from "react-confetti";
 

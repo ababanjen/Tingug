@@ -13,7 +13,7 @@ const Footer = () => {
         />
       </div>
       <p className="text-white flex w-full text-center p-10 text-sm">
-        {`Sing your heart out with our brand new karaoke web app! Founded by Jen Ababan on February 20, 2024 and ready to bring the music to your fingertips. Start belting out your favorite tunes with friends. Let's make every day a karaoke night!`}
+        {`Sing your heart out with our brand new karaoke web app! Founded by Jenelyn Ababan on February 20, 2024 and ready to bring the music to your fingertips. Start belting out your favorite tunes with friends. Let's make every day a karaoke night!`}
       </p>
       <span className="w-full flex justify-center text-white text-xs">
         &copy; {new Date().getFullYear()}

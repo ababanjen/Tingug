@@ -1,24 +1,39 @@
-import { useEffect, useState } from "react";
-import { useTYPlayerStore } from "../store/YTP";
+import { useEffect, useRef, useState } from "react";
+import { useTYPlayerStore } from "../../store/YTP";
 import ItemCard from "./ItemCard";
 import axios from "axios";
 import clsx from "clsx";
 import { isEmpty } from "lodash";
+import { searchAPI } from "@/app/helpers/api";
 
 const SearhContainer = () => {
-  const { list, setList, favorites, setFavorites } = useTYPlayerStore();
+  const { list, setList, favorites, setFavorites, focusInput, setFocusInput } =
+    useTYPlayerStore();
   const [search, setSearch] = useState<string>("");
   const [searched, setSearched] = useState<boolean>(false);
   const [viewList, setViewList] = useState<boolean>(true);
+
+  const searchInputRef: any = useRef();
 
   useEffect(() => {
     const localFavQueues = JSON.parse(
       localStorage.getItem("favQueues") || '""'
     );
+
     const fav = isEmpty(localFavQueues) ? null : localFavQueues;
     if (fav) setViewList(false);
     setFavorites(fav);
+
+    return () => {
+      setFocusInput(false);
+    };
   }, []);
+
+  useEffect(() => {
+    if (focusInput) {
+      searchInputRef?.current.focus();
+    }
+  }, [focusInput]);
 
   useEffect(() => {
     if (favorites && !list) setList(favorites);
@@ -27,7 +42,7 @@ const SearhContainer = () => {
   const fetchYT = async () => {
     const res = await axios({
       method: "GET",
-      url: `${process.env.API}?part=snippet&q=${search} karaoke&maxResults=50&key=${process.env.APIKEY}`,
+      url: searchAPI(search),
     });
     setList(res.data.items);
     setViewList(true);
@@ -57,7 +72,7 @@ const SearhContainer = () => {
   };
 
   return (
-    <div className="bg-[#F7F7F7] h-64 md:h-96 lg:h-[50rem] lg:max-h-[50rem] overflow-hidden shadow rounded flex flex-col lg:w-[25rem]">
+    <div className="bg-[#F7F7F7] h-64 md:h-96 lg:h-[-webkit-fill-available] lg:max-h-[50rem] overflow-hidden shadow rounded flex flex-col lg:w-[25rem]">
       <div className="px-4 py-2 flex flex-col gap-1">
         <input
           type="text"
@@ -66,6 +81,8 @@ const SearhContainer = () => {
           value={search}
           onChange={handleChange}
           onKeyDown={onKeyDown}
+          autoFocus
+          ref={searchInputRef}
         />
         {list && searched && (
           <span className="text-[#615E5E] text-xs">

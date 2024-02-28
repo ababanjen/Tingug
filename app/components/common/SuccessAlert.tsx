@@ -1,4 +1,4 @@
-import { useTYPlayerStore } from "../store/YTP";
+import { useTYPlayerStore } from "../../store/YTP";
 
 const SuccessAlert = () => {
   const { successReservation } = useTYPlayerStore();

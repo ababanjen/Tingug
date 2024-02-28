@@ -1,6 +1,6 @@
-import useOnSelectPlay from "../hooks/useOnSelectPlay";
-import { useTYPlayerStore } from "../store/YTP";
-import CloseV1 from "./icons/closev1";
+import useOnSelectPlay from "../../hooks/useOnSelectPlay";
+import { useTYPlayerStore } from "../../store/YTP";
+import CloseV1 from "../icons/closev1";
 
 const ReservedCard = ({ item, idx }: { item: any; idx: number }) => {
   const { currentPlaying, queues, setQueues } = useTYPlayerStore();
@@ -20,11 +20,11 @@ const ReservedCard = ({ item, idx }: { item: any; idx: number }) => {
 
   const handleRemoveQueue = (e: any) => {
     e.stopPropagation();
-    console.log({ queues, item });
     const newQueues: any = queues
       ?.filter((q) => q.queue !== item.queue)
       .map((q, k) => ({ ...q, queue: k }));
     setQueues(newQueues);
+    localStorage.setItem("queues", JSON.stringify(newQueues));
   };
 
   return (
