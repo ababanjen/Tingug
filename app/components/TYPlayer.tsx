@@ -54,10 +54,7 @@ const TYPlayer = () => {
     });
   }, []);
 
-  const onError = (error: any) => {
-    console.log({error});
-    setError(error);
-  }
+  const onError = (error: any) => setError(error);
 
   const playNext = () => {
     const removeErrorQueue: any = queues
@@ -67,6 +64,7 @@ const TYPlayer = () => {
     setCurrentPlaying(removeErrorQueue[0]);
     setError(null);
   };
+  
   return (
     <div className="w-full">
       {currentPlaying && rScores <= 0 && !error ? (

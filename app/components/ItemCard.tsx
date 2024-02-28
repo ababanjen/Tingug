@@ -55,7 +55,6 @@ const ItemCard = ({ item }: { item: any }) => {
     } else {
       fav = isEmpty(favQueues) ? [item] : [...favQueues, item];
     }
-
     setFavorites(fav);
     localStorage.setItem("favQueues", JSON.stringify(fav));
   };

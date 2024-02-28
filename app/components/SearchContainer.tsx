@@ -6,18 +6,23 @@ import clsx from "clsx";
 import { isEmpty } from "lodash";
 
 const SearhContainer = () => {
-  const { list, setList } = useTYPlayerStore();
+  const { list, setList, favorites, setFavorites } = useTYPlayerStore();
   const [search, setSearch] = useState<string>("");
   const [searched, setSearched] = useState<boolean>(false);
   const [viewList, setViewList] = useState<boolean>(true);
-  const [favQueues, setFavQueues] = useState<any>(null);
 
   useEffect(() => {
     const localFavQueues = JSON.parse(
       localStorage.getItem("favQueues") || '""'
     );
-    setFavQueues(isEmpty(localFavQueues) ? null : localFavQueues);
+    const fav = isEmpty(localFavQueues) ? null : localFavQueues;
+    if (fav) setViewList(false);
+    setFavorites(fav);
   }, []);
+
+  useEffect(() => {
+    if (favorites && !list) setList(favorites);
+  }, [favorites]);
 
   const fetchYT = async () => {
     const res = await axios({
@@ -46,9 +51,9 @@ const SearhContainer = () => {
 
   const filterView = (item: any) => {
     if (viewList) return true;
-    if (favQueues)
-      return favQueues?.some((f: any) => f.id.videoId === item.id.videoId);
-    return false;
+    return (
+      favorites?.some((f: any) => f.id.videoId === item.id.videoId) || false
+    );
   };
 
   return (
@@ -93,12 +98,12 @@ const SearhContainer = () => {
         </span>
       </div>
       <div className="flex flex-col gap-1 overflow-auto ">
-        {!list && !favQueues && (
+        {!list && !favorites && (
           <span className="text-[#615E5E] italic my-4 mx-2">
             Search song titles...
           </span>
         )}
-        {(list ?? favQueues)?.map(
+        {list?.map(
           (item: any, key: number) =>
             filterView(item) && <ItemCard key={key} item={item} />
         )}
