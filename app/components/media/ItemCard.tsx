@@ -79,7 +79,7 @@ const ItemCard = ({ item }: { item: any }) => {
           />
         </span>
         <div className="flex items-end justify-between w-full">
-          <Button onClick={addToQueuee} label="Reserve"></Button>
+          <Button onClick={addToQueuee} labelClassName="flex items-center py-2" label="Reserve"/>
           <span className="cursor-pointer" onClick={addAsFavorite}>
             <HeartIcon active={isFav} />
           </span>
