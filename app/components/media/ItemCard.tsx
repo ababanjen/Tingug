@@ -4,6 +4,7 @@ import { useTYPlayerStore } from "../../store/YTP";
 import useOnSelectPlay from "../../hooks/useOnSelectPlay";
 import { isEmpty, isNull } from "lodash";
 import HeartIcon from "../icons/heart";
+import Button from "../common/formComponents/Button";
 
 const ItemCard = ({ item }: { item: any }) => {
   const [isFav, setIsFave] = useState<boolean>(false);
@@ -60,8 +61,8 @@ const ItemCard = ({ item }: { item: any }) => {
   };
 
   return (
-    <div className="bg-[#EEEEEE] hover:bg-[#D9D9D9] px-4 py-2 gap-2 flex w-full">
-      <div className="overflow-hidden  flex w-40">
+    <div className="bg-light hover:bg-[#D9D9D9] px-4 py-2 gap-2 border-b flex w-full">
+      <div className="overflow-hidden  flex w-40 rounded-sm">
         <Image
           width={100}
           height={100}
@@ -78,12 +79,7 @@ const ItemCard = ({ item }: { item: any }) => {
           />
         </span>
         <div className="flex items-end justify-between w-full">
-          <a
-            className="bg-[#1A3271] px-4 p-1 text-sm cursor-pointer hover:bg-[#162C64] text-white"
-            onClick={addToQueuee}
-          >
-            Reserve
-          </a>
+          <Button onClick={addToQueuee} label="Reserve"></Button>
           <span className="cursor-pointer" onClick={addAsFavorite}>
             <HeartIcon active={isFav} />
           </span>

@@ -1,7 +1,14 @@
-const Homepage = () => {
-  return(
-    <div>This is Homepage</div>
-  )
-}
+"use client"
+import Footer from "../common/Footer";
+import Header from "../common/Header";
 
-export default Homepage
+const Homepage = () => {
+  return (
+    <div className="realtive ">
+      <Header />
+      <Footer />
+    </div>
+  );
+};
+
+export default Homepage;

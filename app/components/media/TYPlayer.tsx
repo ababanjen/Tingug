@@ -5,6 +5,7 @@ import { useTYPlayerStore } from "../../store/YTP";
 import useScore from "../../hooks/useScore";
 import MusicIcon from "../icons/music";
 import TroubleIcon from "../icons/trouble";
+import clsx from "clsx";
 
 const TYPlayer = () => {
   const [error, setError] = useState<any>(null);
@@ -17,6 +18,9 @@ const TYPlayer = () => {
     rScores,
     setRScores,
     setFinalScore,
+    expandSearchBar,
+    setExpandSearch,
+    skipScore,
   } = useTYPlayerStore();
   const onRollScoreBoard = useScore();
 
@@ -28,13 +32,14 @@ const TYPlayer = () => {
 
   const onEnd = () => {
     window.scrollTo(0, 0);
+    const timeOut = skipScore ? 1000 : 20000;
     const nextQueue = isNumber(currentPlaying?.queue)
       ? currentPlaying?.queue + 1
       : null;
     const newQueues: any = queues
       ?.filter((item) => item.queue !== currentPlaying?.queue)
       .map((i: any, key: any) => ({ ...i, queue: key }));
-    onRollScoreBoard();
+    !skipScore && onRollScoreBoard();
     setTimeout(() => {
       setQueues(newQueues);
       setRScores(0);
@@ -43,7 +48,7 @@ const TYPlayer = () => {
       if (nextQueue) {
         setCurrentPlaying(newQueues[0]);
       }
-    }, 20000);
+    }, timeOut);
   };
 
   useEffect(() => {
@@ -65,6 +70,10 @@ const TYPlayer = () => {
     setError(null);
   };
 
+  const handleExpand = () => {
+    !error && setExpandSearch(true);
+  };
+
   return (
     <div className="w-full">
       {currentPlaying && rScores <= 0 && !error ? (
@@ -77,25 +86,32 @@ const TYPlayer = () => {
           iframeClassName="w-full lg:h-[40rem]"
         />
       ) : (
-        <div className="flex w-full justify-center flex-col p-14 lg:h-[40rem]">
+        <div
+          className={clsx({
+            "flex w-full justify-center flex-col p-14 lg:h-[40rem] bg-white rounded":
+              true,
+            "cursor-pointer": expandSearchBar,
+          })}
+          onClick={handleExpand}
+        >
           <span className="flex justify-center opacity-[0.5] w-full">
             {error ? <TroubleIcon /> : <MusicIcon />}
           </span>
           <span className="italic text-base flex justify-center py-6">
             {error ? (
               <span className="flex flex-col justify-center gap-2">
-                <span className=" opacity-15 uppercase">{`OH NO! LOOKS LIKE WE'RE HAVING TROUBLE PLAYING...`}</span>
+                <span className=" opacity-15 uppercase text-xs">{`OH NO! LOOKS LIKE WE'RE HAVING TROUBLE PLAYING...`}</span>
                 <span className="flex gap-2 justify-center">
                   <span
                     onClick={playNext}
-                    className="px-4 py-2 font-light flex justify-center text-white mb-3 rounded bg-blue-950  hover:bg-blue-600 cursor-pointer"
+                    className="px-4 text-xs py-2 font-light flex justify-center text-white mb-3 rounded bg-main  hover:bg-blue-600 cursor-pointer"
                   >
                     Play next song
                   </span>
                 </span>
               </span>
             ) : (
-              <span className="flex font-light justify-center uppercase opacity-15">
+              <span className="text-xs flex font-light justify-center uppercase opacity-15">
                 {`Looks like you haven't reserved any song`}
               </span>
             )}
