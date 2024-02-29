@@ -2,7 +2,7 @@ import Logo from "../icons/logo";
 
 const Header = () => {
   return (
-    <div className="flex flex-col gap-2 md:flex-row w-full justify-between items-center py-4 px-6 sticky top-0 bg-coffee shadow">
+    <div className="flex flex-col gap-2 md:flex-row w-full justify-between items-center py-4 px-6 md:sticky top-0 bg-coffee shadow">
       <span>
         <Logo />
       </span>
