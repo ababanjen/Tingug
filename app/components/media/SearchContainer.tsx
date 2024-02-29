@@ -95,7 +95,7 @@ const SearchContainer = () => {
           />
           <span
             onClick={submit}
-            className="cursor-pointer flex justify-center items-center"
+            className="cursor-pointer flex justify-center items-center w-[4rem] z-30"
           >
             <SearchIcon />
           </span>
