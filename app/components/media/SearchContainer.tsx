@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { isEmpty } from "lodash";
 import { searchAPI } from "@/app/helpers/api";
 import Input from "../common/formComponents/Input";
+import SearchIcon from "../icons/search";
 
 const SearchContainer = () => {
   const { list, setList, favorites, setFavorites, focusInput, setFocusInput } =
@@ -53,15 +54,14 @@ const SearchContainer = () => {
     setSearch(value);
   };
 
-  const submit = (e: any) => {
-    e.preventDefault();
+  const submit = () => {
     fetchYT();
     setSearched(true);
   };
 
   const onKeyDown = (e: any) => {
     if (e.keyCode === 13) {
-      submit(e);
+      submit();
       return;
     }
     setSearched(false);
@@ -83,17 +83,23 @@ const SearchContainer = () => {
         <span className="text-xs font-semibold">
           Look for your favorite song!
         </span>
-        <form onKeyDown={onKeyDown} onSubmit={submit} className="w-full">
+        <div className="flex gap-2">
           <Input
             value={search}
             onChange={handleChange}
             onKeyDown={onKeyDown}
             autoFocus
             ref={searchInputRef}
-            placeholder="Search your favorite karaoke song"
+            placeholder="Search your favorite karaoke song "
             className="text-xs w-full"
           />
-        </form>
+          <span
+            onClick={submit}
+            className="cursor-pointer flex justify-center items-center"
+          >
+            <SearchIcon />
+          </span>
+        </div>
         {list && searched && search && (
           <span className="text-[#615E5E] text-xs">
             Results for <span className="font-semibold italic">{search}</span>
