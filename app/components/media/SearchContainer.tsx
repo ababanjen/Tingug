@@ -111,7 +111,7 @@ const SearchContainer = () => {
           className={clsx({
             "w-full text-sm cursor-pointer flex  py-1 justify-center uppercase font-semibold":
               true,
-            "bg-[#D9D9D9]": viewList,
+            "bg-main text-white": viewList,
             "bg-[#E6E6E6] text-[#615E5E]": !viewList,
           })}
           onClick={() => handleChangeTab("list")}
@@ -122,7 +122,7 @@ const SearchContainer = () => {
           className={clsx({
             "text-sm w-full cursor-pointer flex py-1 justify-center uppercase font-semibold":
               true,
-            "bg-[#D9D9D9]": !viewList,
+            "bg-main text-white": !viewList,
             "bg-[#E6E6E6] text-[#615E5E]": viewList,
           })}
           onClick={() => handleChangeTab("favorites")}
