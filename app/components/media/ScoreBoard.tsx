@@ -13,29 +13,11 @@ const ScoreBoard = () => {
   const high = rScores > 80;
 
   const voice = low ? "low.mp3" : mid ? "high.mp3" : "high.mp3";
-  const espVoiceOver = high ? "xhigh.mp3" : rScores === 69 ? "yamete.mp3" : false;
-  
-  useEffect(()=>{
-    window.addEventListener('load', function () {
-      var audioCtx = new (window.AudioContext || window.AudioContext)();
-      var source = audioCtx.createBufferSource();
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'audio-autoplay.wav');
-      xhr.responseType = 'arraybuffer';
-      xhr.addEventListener('load', function (r) {
-          audioCtx.decodeAudioData(
-                  xhr.response, 
-                  function (buffer) {
-                      source.buffer = buffer;
-                      source.connect(audioCtx.destination);
-                      source.loop = false;
-                  });
-          source.start(0);
-      });
-      xhr.send();
-  });
-  },[])
-
+  const espVoiceOver = high
+    ? "xhigh.mp3"
+    : rScores === 69
+    ? "yamete.mp3"
+    : false;
 
   return (
     <div className="bg-black z-20 bg-opacity-80 absolute w-full h-max flex justify-center">
