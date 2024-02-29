@@ -14,7 +14,7 @@ const Media = () => {
       <SuccessAlert />
       <Header />
       <div className="flex flex-col gap-2 py-4 px-6">
-        <div className="rounded">
+        <div className="rounded overflow-hidden">
           <TYPlayer />
         </div>
         <ReservedContainer />
