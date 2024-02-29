@@ -23,7 +23,7 @@ const Section4 = () => {
   const subscriptions = [
     {
       title: "Tingug Premium",
-      amount: 20,
+      amount: 2,
       limit: 2,
       limitType: "hours",
       description:
