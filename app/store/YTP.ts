@@ -27,6 +27,8 @@ type TYPlayerStore = {
   successReservation: any;
   favorites: any;
   focusInput: boolean;
+  expandSearchBar: boolean;
+  skipScore: boolean;
   setList: (data: SearchListTypes) => void;
   setCurrentPlaying: (data: CurrentPlayingTypes) => void;
   setQueues: (data: QueuesTypes) => void;
@@ -36,6 +38,8 @@ type TYPlayerStore = {
   setSuccessReservation: (data: any) => void;
   setFavorites: (data: any) => void;
   setFocusInput: (data: boolean) => void;
+  setExpandSearch: (data: boolean) => void;
+  setSkipScore: (data: boolean) => void;
 };
 
 export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
@@ -48,6 +52,8 @@ export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
   successReservation: false,
   favorites: null,
   focusInput: false,
+  expandSearchBar: false,
+  skipScore: false,
   setList: (data: SearchListTypes) => set(() => ({ list: data })),
   setCurrentPlaying: (data: CurrentPlayingTypes) =>
     set(() => ({ currentPlaying: data })),
@@ -59,4 +65,6 @@ export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
     set(() => ({ successReservation: data })),
   setFavorites: (data: any) => set(() => ({ favorites: data })),
   setFocusInput: (data: boolean) => set(() => ({ focusInput: data })),
+  setExpandSearch: (data: boolean) => set(() => ({ expandSearchBar: data })),
+  setSkipScore: (data: boolean) => set(() => ({ skipScore: data })),
 }));

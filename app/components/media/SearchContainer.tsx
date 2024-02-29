@@ -5,8 +5,9 @@ import axios from "axios";
 import clsx from "clsx";
 import { isEmpty } from "lodash";
 import { searchAPI } from "@/app/helpers/api";
+import Input from "../common/formComponents/Input";
 
-const SearhContainer = () => {
+const SearchContainer = () => {
   const { list, setList, favorites, setFavorites, focusInput, setFocusInput } =
     useTYPlayerStore();
   const [search, setSearch] = useState<string>("");
@@ -72,19 +73,21 @@ const SearhContainer = () => {
   };
 
   return (
-    <div className="bg-[#F7F7F7] h-64 md:h-96 lg:h-[-webkit-fill-available] lg:max-h-[50rem] overflow-hidden shadow rounded flex flex-col lg:w-[25rem]">
-      <div className="px-4 py-2 flex flex-col gap-1">
-        <input
-          type="text"
-          placeholder="Search title or singer"
-          className="border border[#C4C4C4] text-sm text-[#615E5E] rounded p-2 italic"
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-4">
+        <span className="text-xs font-semibold">
+          Look for your favorite song!
+        </span>
+        <Input
           value={search}
           onChange={handleChange}
           onKeyDown={onKeyDown}
           autoFocus
           ref={searchInputRef}
+          placeholder="Search your favorite karaoke song"
+          className="text-xs"
         />
-        {list && searched && (
+        {list && searched && search && (
           <span className="text-[#615E5E] text-xs">
             Results for <span className="font-semibold italic">{search}</span>
           </span>
@@ -93,7 +96,7 @@ const SearhContainer = () => {
       <div className="flex w-full">
         <span
           className={clsx({
-            "w-full cursor-pointer flex  py-1 justify-center uppercase font-semibold":
+            "w-full text-sm cursor-pointer flex  py-1 justify-center uppercase font-semibold":
               true,
             "bg-[#D9D9D9]": viewList,
             "bg-[#E6E6E6] text-[#615E5E]": !viewList,
@@ -104,7 +107,7 @@ const SearhContainer = () => {
         </span>
         <span
           className={clsx({
-            "w-full cursor-pointer flex py-1 justify-center uppercase font-semibold":
+            "text-sm w-full cursor-pointer flex py-1 justify-center uppercase font-semibold":
               true,
             "bg-[#D9D9D9]": !viewList,
             "bg-[#E6E6E6] text-[#615E5E]": viewList,
@@ -114,9 +117,9 @@ const SearhContainer = () => {
           Favorites
         </span>
       </div>
-      <div className="flex flex-col gap-1 overflow-auto ">
+      <div className="flex flex-col overflow-auto h-[100vh] ">
         {!list && !favorites && (
-          <span className="text-[#615E5E] italic my-4 mx-2">
+          <span className="text-[#615E5E] italic my-4 mx-2 text-xs">
             Search song titles...
           </span>
         )}
@@ -129,4 +132,4 @@ const SearhContainer = () => {
   );
 };
 
-export default SearhContainer;
+export default SearchContainer;

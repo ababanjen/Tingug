@@ -4,7 +4,7 @@ const SuccessAlert = () => {
   const { successReservation } = useTYPlayerStore();
   if (!successReservation) return;
   return (
-    <span className="rounded right-4 top-4 p-2 text-sm fixed bg-green-200 border-green-300 text-gray-600">
+    <span className="z-20 rounded right-4 bottom-4  p-2 text-sm fixed bg-black text-white bg-opacity-80">
       Reserved!{" "}
       <span
         className="font-semibold italic"

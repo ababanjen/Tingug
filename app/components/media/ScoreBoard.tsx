@@ -13,7 +13,7 @@ const ScoreBoard = () => {
   const voice = low ? "low.mp3" : mid ? "high.mp3" : "high.mp3";
   const espVoiceOver = high ? "xhigh.mp3" : rScores === 69 ? "yamete.mp3" : false;
   return (
-    <div className="bg-black z-10 bg-opacity-80 absolute w-full h-max flex justify-center">
+    <div className="bg-black z-20 bg-opacity-80 absolute w-full h-max flex justify-center">
       {finalScore && (
         <>
           {espVoiceOver && (

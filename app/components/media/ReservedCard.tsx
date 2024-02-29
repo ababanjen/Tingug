@@ -29,12 +29,12 @@ const ReservedCard = ({ item, idx }: { item: any; idx: number }) => {
 
   return (
     <div
-      className="flex bg-[#EEEEEE]  p-2 w-[10rem] cursor-pointer"
+      className="flex bg-[#EEEEEE]  p-2 w-[10rem] cursor-pointer rounded"
       onClick={handleSelectQueue}
     >
       <div className="flex flex-col">
         <span
-          className="font-semibold line-clamp-1"
+          className="font-semibold line-clamp-1 text-xs"
           dangerouslySetInnerHTML={{ __html: item.title }}
         />
         <span className="text-xs text-[#615E5E] italic">{item.singer}</span>
