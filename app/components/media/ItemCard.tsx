@@ -66,9 +66,9 @@ const ItemCard = ({ item }: { item: any }) => {
         <Image
           width={100}
           height={100}
-          src={item.snippet.thumbnails.default.url}
+          src={item.snippet.thumbnails.high.url}
           alt="thumbnail"
-          loader={() => item.snippet.thumbnails.default.url}
+          loader={() => item.snippet.thumbnails.high.url}
         />
       </div>
       <div className="flex flex-col gap-2 w-[-webkit-fill-available]">

@@ -4,7 +4,7 @@ type InputTypes = {
   value: any;
   onChange?: (e: any) => void;
   onKeyDown?: (e: any) => void;
-  ref: any;
+  ref?: any;
   placeholder?: string;
   autoFocus?: boolean;
   className?: string;

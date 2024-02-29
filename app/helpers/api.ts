@@ -1,2 +1,2 @@
-export const searchAPI = (search: string) =>
-  `${process.env.API}/search?part=snippet&q=${search} karaoke&maxResults=50&key=${process.env.APIKEY}`;
+export const searchAPI = (search: string, limit?: number) =>
+  `${process.env.API}/search?part=snippet&q=${search} karaoke&maxResults=${limit}&key=${process.env.APIKEY}`;

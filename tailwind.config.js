@@ -10,11 +10,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        geobg: "/bg.png",
+      },
       colors: {
         coffee: "#A49393",
         main: "#900020",
         "footer-dark": "#444444",
         light: "#F3F2F2",
+        ["faded-gray"]: "#D9D9D9",
+        ["faded-gray-500"]: "#E4E5E8",
       },
     },
   },
