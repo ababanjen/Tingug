@@ -7,6 +7,8 @@ import { isEmpty } from "lodash";
 import { searchAPI } from "@/app/helpers/api";
 import Input from "../common/formComponents/Input";
 import SearchIcon from "../icons/search";
+import Logo from "../icons/logo";
+import LogoBlack from "../icons/logo-b";
 
 const SearchContainer = () => {
   const { list, setList, favorites, setFavorites, focusInput, setFocusInput } =
@@ -106,7 +108,7 @@ const SearchContainer = () => {
           </span>
         )}
       </div>
-      <div className="flex w-full">
+      <div className="flex w-full h-full">
         <span
           className={clsx({
             "w-full text-sm cursor-pointer flex  py-1 justify-center uppercase font-semibold":
@@ -130,16 +132,21 @@ const SearchContainer = () => {
           Favorites
         </span>
       </div>
-      <div className="flex flex-col overflow-auto h-[100vh] ">
-        {!list && !favorites && (
-          <span className="text-[#615E5E] italic my-4 mx-2 text-xs">
-            Search song titles...
-          </span>
-        )}
-        {list?.map(
-          (item: any, key: number) =>
-            filterView(item) && <ItemCard key={key} item={item} />
-        )}
+      <div className="flex justify-between gap-5 flex-col  h-[100vh]">
+        <div className="flex flex-col overflow-auto ">
+          {!list && !favorites && (
+            <span className="text-[#615E5E] italic my-4 mx-2 text-xs">
+              Search song titles...
+            </span>
+          )}
+          {list?.map(
+            (item: any, key: number) =>
+              filterView(item) && <ItemCard key={key} item={item} />
+          )}
+        </div>
+        <div className="w-full flex justify-center">
+          <LogoBlack/>
+        </div>
       </div>
     </div>
   );
