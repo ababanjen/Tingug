@@ -93,12 +93,15 @@ const SearchContainer = () => {
             placeholder="Search your favorite karaoke song "
             className="text-xs w-full"
           />
-          <a
+          <button onClick={submit}>
+            search
+          </button>
+          {/* <a
             onClick={submit}
             className="cursor-pointer flex justify-center items-center w-[4rem] z-30"
           >
             <SearchIcon />
-          </a>
+          </a> */}
         </div>
         {list && searched && search && (
           <span className="text-[#615E5E] text-xs">
