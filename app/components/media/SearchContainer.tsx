@@ -53,10 +53,15 @@ const SearchContainer = () => {
     setSearch(value);
   };
 
-  const onKeyDown = ({ keyCode }: { keyCode: number }) => {
-    if (keyCode === 13) {
-      fetchYT();
-      setSearched(true);
+  const submit = (e: any) => {
+    e.preventDefault();
+    fetchYT();
+    setSearched(true);
+  };
+
+  const onKeyDown = (e: any) => {
+    if (e.keyCode === 13) {
+      submit(e);
       return;
     }
     setSearched(false);
@@ -78,15 +83,17 @@ const SearchContainer = () => {
         <span className="text-xs font-semibold">
           Look for your favorite song!
         </span>
-        <Input
-          value={search}
-          onChange={handleChange}
-          onKeyDown={onKeyDown}
-          autoFocus
-          ref={searchInputRef}
-          placeholder="Search your favorite karaoke song"
-          className="text-xs"
-        />
+        <form onKeyDown={onKeyDown} onSubmit={submit} className="w-full">
+          <Input
+            value={search}
+            onChange={handleChange}
+            onKeyDown={onKeyDown}
+            autoFocus
+            ref={searchInputRef}
+            placeholder="Search your favorite karaoke song"
+            className="text-xs w-full"
+          />
+        </form>
         {list && searched && search && (
           <span className="text-[#615E5E] text-xs">
             Results for <span className="font-semibold italic">{search}</span>
