@@ -42,9 +42,9 @@ const ReservedContainer = () => {
     <div className="bg-white  rounded py-2 px-4">
       {queues?.length ? (
         <div className="flex flex-col w-full">
-          <div className="flex w-full justify-between items-center border-b border-black py-2">
+          <div className="flex flex-col gap-2 md:flex-row w-full justify-between items-center border-b border-black py-2">
             {typeof currentPlaying?.title === "string" && (
-              <span className="text-xs">
+              <span className="text-xs w-full">
                 Currently playing{" "}
                 <span
                   className="font-semibold italic text-xs"
@@ -54,7 +54,7 @@ const ReservedContainer = () => {
                 />
               </span>
             )}
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full justify-end">
               <Switch
                 onChange={toggleScore}
                 checked={skipScore}
@@ -65,8 +65,8 @@ const ReservedContainer = () => {
               </span>
             </div>
           </div>
-          <div className="flex gap-2 py-2">
-            <div className="flex flex-col gap-2 border-r border-black pr-2">
+          <div className="flex flex-col lg:flex-row gap-2 py-2 overflow-hidden">
+            <div className="flex flex-col gap-2 border-b md:border-b-0 pb-2 md:pb-0 lg:border-r border-black pr-2">
               <span className="uppercase text-xs">next song</span>
               {queues[1] ? (
                 <ReservedCard item={queues ? queues[1] : null} idx={0} />
@@ -76,9 +76,9 @@ const ReservedContainer = () => {
                 </span>
               )}
             </div>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2 w-full h-full">
               <span className="uppercase text-xs">Reserved</span>
-              <div className="flex gap-2">
+              <div className="flex flex-col md:flex-row gap-2 overflow-auto">
                 {queues[1] ? (
                   queues?.map(
                     (item: any, key: number) =>

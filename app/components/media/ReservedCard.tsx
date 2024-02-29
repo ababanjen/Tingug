@@ -29,7 +29,7 @@ const ReservedCard = ({ item, idx }: { item: any; idx: number }) => {
 
   return (
     <div
-      className="flex bg-[#EEEEEE]  p-2 w-[10rem] cursor-pointer rounded"
+      className="flex bg-[#EEEEEE]  p-2 w-full md:w-[10rem] cursor-pointer rounded"
       onClick={handleSelectQueue}
     >
       <div className="flex flex-col">

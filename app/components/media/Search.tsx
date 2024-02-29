@@ -27,13 +27,13 @@ const Search = () => {
       className={clsx({
         "bg-white absolute top-0 right-0  h-[-webkit-fill-available] shadow z-10":
           true,
-        "w-[70%] md:w-[30%]": expandSearchBar,
+        "w-[80%] md:w-[30%]": expandSearchBar,
         "w-0": !expandSearchBar,
       })}
     >
       {expandSearchBar && <SearchContainer />}
       <div
-        className="absolute bg-main left-[-28px] top-32 h-[20%] flex items-center cursor-pointer px-2 rounded-l shadow"
+        className="absolute bg-main left-[-19px] md:left-[-28px] top-32 h-[20%] flex items-center cursor-pointer px-1 md:px-2 rounded-l shadow"
         onClick={handleExpand}
       >
         <HamburgerIcon />

@@ -52,7 +52,7 @@ export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
   successReservation: false,
   favorites: null,
   focusInput: false,
-  expandSearchBar: false,
+  expandSearchBar: true,
   skipScore: false,
   setList: (data: SearchListTypes) => set(() => ({ list: data })),
   setCurrentPlaying: (data: CurrentPlayingTypes) =>
