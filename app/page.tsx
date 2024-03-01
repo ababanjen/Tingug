@@ -1,7 +1,7 @@
 import Homepage from "./components/home/Homepage";
 import { searchAPI } from "@/app/helpers/api";
 
-export const getData = async () => {
+const getData = async () => {
   try {
     const res = await fetch(searchAPI("", 3));
     return res.json();

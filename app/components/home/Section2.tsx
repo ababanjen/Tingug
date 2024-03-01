@@ -4,8 +4,6 @@ import useOnSearch from "@/app/hooks/useOnSearch";
 import Input from "../common/formComponents/Input";
 import { HomepageTypes } from "./Homepage";
 import { useTYPlayerStore } from "@/app/store/YTP";
-import { searchByChannelId } from "@/app/helpers/api";
-import axios from "axios";
 import { getLocalQueues, setLocalQueues } from "@/app/helpers/localStorage";
 
 type Section2Types = {} & HomepageTypes;
