@@ -5,14 +5,27 @@ import Input from "../common/formComponents/Input";
 import { HomepageTypes } from "./Homepage";
 import { useTYPlayerStore } from "@/app/store/YTP";
 import { getLocalQueues, setLocalQueues } from "@/app/helpers/localStorage";
+import { useEffect, useRef } from "react";
 
 type Section2Types = {} & HomepageTypes;
 
 const Section2 = ({ top3Search }: Section2Types) => {
-  const { searchValue, setSearchValue, setCurrentPlaying, setQueues } =
-    useTYPlayerStore();
+  const {
+    searchValue,
+    setSearchValue,
+    setCurrentPlaying,
+    setQueues,
+    focusInput,
+  } = useTYPlayerStore();
   const { push } = useRouter();
   const fetchYT = useOnSearch();
+  const searchRef: any = useRef();
+
+  useEffect(() => {
+    if (focusInput && searchRef) {
+      searchRef?.current.focus();
+    }
+  }, [focusInput]);
 
   const onChangeSearch = ({ target: { value } }: any) => setSearchValue(value);
 
@@ -45,6 +58,7 @@ const Section2 = ({ top3Search }: Section2Types) => {
       <div className="flex flex-col gap-4">
         <div className="flex  lg:px-32 ">
           <Input
+            ref={searchRef}
             placeholder="Search your favorite karaoke song"
             value={searchValue}
             onKeyDown={onKeyDown}

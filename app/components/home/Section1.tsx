@@ -1,6 +1,8 @@
+import { useTYPlayerStore } from "@/app/store/YTP";
 import Button from "../common/formComponents/Button";
 
 const Section1 = () => {
+  const { setFocusInput } = useTYPlayerStore();
   return (
     <section className="mt-16 mb-6 lg:mb-44 flex flex-col gap-8 mx-4  lg:mx-32 lg:my-16">
       <h1 className="text-4xl text-white drop-shadow-lg font-bold shadow-black lg:w-[50%]">
@@ -16,6 +18,7 @@ const Section1 = () => {
           label="Sing for free!"
           className="py-2"
           labelClassName="text-lg"
+          onClick={() => setFocusInput(true)}
         />
       </span>
     </section>
@@ -23,6 +26,3 @@ const Section1 = () => {
 };
 
 export default Section1;
-
-
-
