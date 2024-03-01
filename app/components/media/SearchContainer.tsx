@@ -1,36 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { useTYPlayerStore } from "../../store/YTP";
 import ItemCard from "./ItemCard";
-import axios from "axios";
 import clsx from "clsx";
-import { isEmpty } from "lodash";
-import { searchAPI } from "@/app/helpers/api";
 import Input from "../common/formComponents/Input";
 import SearchIcon from "../icons/search";
-import Logo from "../icons/logo";
 import LogoBlack from "../icons/logo-b";
+import useOnSearch from "@/app/hooks/useOnSearch";
+import { getLocalFavorites } from "@/app/helpers/localStorage";
 
 const SearchContainer = () => {
-  const { list, setList, favorites, setFavorites, focusInput, setFocusInput } =
-    useTYPlayerStore();
-  const [search, setSearch] = useState<string>("");
+  const {
+    searchValue: search,
+    setSearchValue: setSearch,
+    list,
+    setList,
+    favorites,
+    setFavorites,
+    focusInput,
+    setFocusInput,
+  } = useTYPlayerStore();
   const [searched, setSearched] = useState<boolean>(false);
   const [viewList, setViewList] = useState<boolean>(true);
 
   const searchInputRef: any = useRef();
 
+  const fetchYT = useOnSearch();
+
   useEffect(() => {
-    const localFavQueues = JSON.parse(
-      localStorage.getItem("favQueues") || '""'
-    );
+    const localFav = getLocalFavorites();
+    if (localFav.length > 0 && !list) {
+      setFavorites(localFav);
+      setViewList(false)
+    }
 
-    const fav = isEmpty(localFavQueues) ? null : localFavQueues;
-    if (fav) setViewList(false);
-    setFavorites(fav);
-
-    return () => {
-      setFocusInput(false);
-    };
+      return () => {
+        setFocusInput(false);
+      };
   }, []);
 
   useEffect(() => {
@@ -43,22 +48,14 @@ const SearchContainer = () => {
     if (favorites && !list) setList(favorites);
   }, [favorites]);
 
-  const fetchYT = async () => {
-    const res = await axios({
-      method: "GET",
-      url: searchAPI(search),
-    });
-    setList(res.data.items);
+  const submit = () => {
+    const searchResults = fetchYT(search);
+    setSearched(true);
     setViewList(true);
   };
 
   const handleChange = ({ target: { value } }: any) => {
     setSearch(value);
-  };
-
-  const submit = () => {
-    fetchYT();
-    setSearched(true);
   };
 
   const onKeyDown = (e: any) => {
@@ -145,7 +142,7 @@ const SearchContainer = () => {
           )}
         </div>
         <div className="w-full flex justify-center">
-          <LogoBlack/>
+          <LogoBlack />
         </div>
       </div>
     </div>

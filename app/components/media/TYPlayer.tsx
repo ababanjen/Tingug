@@ -59,7 +59,9 @@ const TYPlayer = () => {
     });
   }, []);
 
-  const onError = (error: any) => setError(error);
+  const onError = (error: any) => {
+    setError(error);
+  }
 
   const playNext = () => {
     const removeErrorQueue: any = queues

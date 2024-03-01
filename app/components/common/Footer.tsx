@@ -37,6 +37,7 @@ const Footer = () => {
               src="/logov2.png"
               alt="logo"
               loader={() => "/logov2.png"}
+              unoptimized
             />
           </div>
         </div>

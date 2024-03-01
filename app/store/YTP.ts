@@ -29,6 +29,7 @@ type TYPlayerStore = {
   focusInput: boolean;
   expandSearchBar: boolean;
   skipScore: boolean;
+  searchValue: string;
   setList: (data: SearchListTypes) => void;
   setCurrentPlaying: (data: CurrentPlayingTypes) => void;
   setQueues: (data: QueuesTypes) => void;
@@ -40,6 +41,7 @@ type TYPlayerStore = {
   setFocusInput: (data: boolean) => void;
   setExpandSearch: (data: boolean) => void;
   setSkipScore: (data: boolean) => void;
+  setSearchValue: (data: string) => void;
 };
 
 export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
@@ -48,12 +50,14 @@ export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
   queues: null,
   rScores: 0,
   finalScore: false,
+  search: "",
   showSearch: false,
   successReservation: false,
   favorites: null,
   focusInput: false,
   expandSearchBar: true,
   skipScore: false,
+  searchValue: "",
   setList: (data: SearchListTypes) => set(() => ({ list: data })),
   setCurrentPlaying: (data: CurrentPlayingTypes) =>
     set(() => ({ currentPlaying: data })),
@@ -67,4 +71,5 @@ export const useTYPlayerStore = create<TYPlayerStore>((set) => ({
   setFocusInput: (data: boolean) => set(() => ({ focusInput: data })),
   setExpandSearch: (data: boolean) => set(() => ({ expandSearchBar: data })),
   setSkipScore: (data: boolean) => set(() => ({ skipScore: data })),
+  setSearchValue: (data: string) => set(() => ({ searchValue: data })),
 }));

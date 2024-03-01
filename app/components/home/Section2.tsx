@@ -1,23 +1,46 @@
-import axios from "axios";
-import Input from "../common/formComponents/Input";
-import { searchAPI } from "@/app/helpers/api";
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import useOnSearch from "@/app/hooks/useOnSearch";
+import Input from "../common/formComponents/Input";
+import { HomepageTypes } from "./Homepage";
+import { useTYPlayerStore } from "@/app/store/YTP";
+import { searchByChannelId } from "@/app/helpers/api";
+import axios from "axios";
+import { getLocalQueues, setLocalQueues } from "@/app/helpers/localStorage";
 
-const Section2 = () => {
-  const [top3, setTop3] = useState<any[] | null>(null);
+type Section2Types = {} & HomepageTypes;
 
-  const fetchYT = async () => {
-    const res = await axios({
-      method: "GET",
-      url: searchAPI("most played", 3),
-    });
-    setTop3(res.data.items);
+const Section2 = ({ top3Search }: Section2Types) => {
+  const { searchValue, setSearchValue, setCurrentPlaying, setQueues } =
+    useTYPlayerStore();
+  const { push } = useRouter();
+  const fetchYT = useOnSearch();
+
+  const onChangeSearch = ({ target: { value } }: any) => setSearchValue(value);
+
+  const onKeyDown = (e: any) => {
+    if (e.keyCode === 13) {
+      fetchYT(searchValue);
+      push("/media");
+      return;
+    }
+    return;
   };
 
-  useEffect(() => {
-    fetchYT();
-  }, []);
+  const handleOnClickPlay = async (item: any) => {
+    const selectedItem = {
+      queue: 0,
+      singer: "unknown",
+      title: item.snippet.title,
+      videoId: "gRj18Tk0j_Q",
+    };
+    const localQueues: any = getLocalQueues();
+    localQueues.splice(0, 0, selectedItem);
+    setLocalQueues(localQueues);
+    setQueues(localQueues);
+    setCurrentPlaying(selectedItem);
+    push("/media");
+  };
 
   return (
     <section className="bg-faded-gray bg-opacity-20  px-4 py-4 lg:px-10 lg:py-8">
@@ -25,9 +48,10 @@ const Section2 = () => {
         <div className="flex  lg:px-32 ">
           <Input
             placeholder="Search your favorite karaoke song"
-            value={""}
+            value={searchValue}
+            onKeyDown={onKeyDown}
             className="w-full rounded-full"
-            onChange={() => null}
+            onChange={onChangeSearch}
           />
         </div>
         <div className="flex flex-col gap-4  lg:px-32">
@@ -35,8 +59,12 @@ const Section2 = () => {
             Top 3 most played
           </span>
           <div className="flex gap-8 justify-center">
-            {top3?.map((item) => (
-              <div key={item.etag} className="overflow-hidden rounded w-60  hover:shadow-inner">
+            {top3Search?.map((item) => (
+              <div
+                key={item.etag}
+                className="overflow-hidden rounded w-60  hover:shadow-2xl cursor-pointer "
+                onClick={() => handleOnClickPlay(item)}
+              >
                 <Image
                   width={100}
                   height={100}

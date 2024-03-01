@@ -1,26 +1,30 @@
+import { LegacyRef, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 type InputTypes = {
   value: any;
   onChange?: (e: any) => void;
   onKeyDown?: (e: any) => void;
-  ref?: any;
   placeholder?: string;
   autoFocus?: boolean;
   className?: string;
 };
 
-const Input = ({
-  value,
-  onChange,
-  ref,
-  placeholder,
-  onKeyDown,
-  autoFocus,
-  className,
-}: InputTypes) => {
+const Input = (
+  {
+    value,
+    onChange,
+    placeholder,
+    onKeyDown,
+    autoFocus,
+    className,
+    ...props
+  }: InputTypes,
+  ref: LegacyRef<HTMLInputElement> | undefined
+) => {
   return (
     <input
+      {...props}
       type="text"
       placeholder={placeholder}
       className={twMerge(
@@ -36,4 +40,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default forwardRef(Input);

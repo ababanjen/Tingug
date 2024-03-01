@@ -5,6 +5,7 @@ import { useTYPlayerStore } from "../../store/YTP";
 import { useEffect } from "react";
 import Switch from "../common/formComponents/Switch";
 import NextIcon from "../icons/next";
+import { getLocalQueues, setLocalQueues } from "@/app/helpers/localStorage";
 
 const ReservedContainer = () => {
   const {
@@ -18,11 +19,9 @@ const ReservedContainer = () => {
 
   useEffect(() => {
     if (!queues) {
-      const localQueues = JSON.parse(localStorage.getItem("queues") || '""');
-      if (localQueues?.length) {
-        setQueues(localQueues);
-        setCurrentPlaying(localQueues[0]);
-      }
+      const localQueues = getLocalQueues();
+      setQueues(localQueues);
+      setCurrentPlaying(localQueues[0]);
     }
   }, []);
 
@@ -33,7 +32,7 @@ const ReservedContainer = () => {
     const isEmpty = newQueues.length <= 0;
     setQueues(isEmpty ? null : newQueues);
     setCurrentPlaying(isEmpty ? null : newQueues[0]);
-    localStorage.setItem("queues", JSON.stringify(newQueues));
+    setLocalQueues(newQueues);
   };
 
   const toggleScore = () => setSkipScore(!skipScore);

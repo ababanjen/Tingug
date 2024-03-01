@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTYPlayerStore } from "../../store/YTP";
 import useOnSelectPlay from "../../hooks/useOnSelectPlay";
-import { isEmpty, isNull } from "lodash";
+import { isNull } from "lodash";
 import HeartIcon from "../icons/heart";
 import Button from "../common/formComponents/Button";
+import {
+  getLocalFavorites,
+  setLocalFavorites,
+  setLocalQueues,
+} from "@/app/helpers/localStorage";
 
 const ItemCard = ({ item }: { item: any }) => {
-  const [isFav, setIsFave] = useState<boolean>(false);
+  const [isFav, setIsFav] = useState<boolean>(false);
   const {
     setSuccessReservation,
     successReservation,
@@ -25,11 +30,11 @@ const ItemCard = ({ item }: { item: any }) => {
   }, [successReservation]);
 
   useEffect(() => {
-    if (favorites) {
-      setIsFave(favorites.some((f: any) => f.id.videoId === item.id.videoId));
+    const localFav = getLocalFavorites();
+    if (!favorites) {
+      setFavorites(localFav);
     } else {
-      const favQueues = JSON.parse(localStorage.getItem("favQueues") || '""');
-      if (!isEmpty(favQueues)) setFavorites(favQueues);
+      setIsFav(favorites.some((f: any) => f.id.videoId === item.id.videoId));
     }
   }, [favorites]);
 
@@ -39,7 +44,7 @@ const ItemCard = ({ item }: { item: any }) => {
     const title = item.snippet.title;
     const newReserved = { singer: "unknown", videoId, title, queue };
     const newQueues = queues ? [...queues, newReserved] : [newReserved];
-    localStorage.setItem("queues", JSON.stringify(newQueues));
+    setLocalQueues(newQueues);
     setQueues(newQueues);
     setSuccessReservation(item);
     if (!queues) {
@@ -49,15 +54,13 @@ const ItemCard = ({ item }: { item: any }) => {
   };
 
   const addAsFavorite = () => {
-    const favQueues = JSON.parse(localStorage.getItem("favQueues") || '""');
-    let fav = isEmpty(favQueues) ? [item] : [...favQueues, item];
-    if (isFav) {
-      fav = favQueues?.filter((f: any) => f.id.videoId !== item.id.videoId);
-    } else {
-      fav = isEmpty(favQueues) ? [item] : [...favQueues, item];
-    }
-    setFavorites(fav);
-    localStorage.setItem("favQueues", JSON.stringify(fav));
+    const favQueues = getLocalFavorites();
+    let newFav = favQueues;
+    if (isFav)
+      newFav = newFav.filter((fav: any) => fav.id.videoId !== item.id.videoId);
+    else newFav = [...newFav, item];
+    setFavorites(newFav);
+    setLocalFavorites(newFav);
   };
 
   return (
@@ -79,7 +82,11 @@ const ItemCard = ({ item }: { item: any }) => {
           />
         </span>
         <div className="flex items-end justify-between w-full">
-          <Button onClick={addToQueuee} labelClassName="flex items-center py-2" label="Reserve"/>
+          <Button
+            onClick={addToQueuee}
+            labelClassName="flex items-center py-2"
+            label="Reserve"
+          />
           <span className="cursor-pointer" onClick={addAsFavorite}>
             <HeartIcon active={isFav} />
           </span>
