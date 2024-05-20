@@ -3,7 +3,7 @@ import { searchAPI } from "@/app/helpers/api";
 
 const getData = async () => {
   try {
-    const res = await fetch(searchAPI("", 3));
+    const res = await fetch(searchAPI("latest", 3));
     return res.json();
   } catch (err) {
     return err;
