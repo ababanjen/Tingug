@@ -22,7 +22,7 @@ const SearchContainer = () => {
   const [searched, setSearched] = useState<boolean>(false);
   const [viewList, setViewList] = useState<boolean>(true);
 
-  const searchInputRef: any = useRef();
+  const searchInputRef: any = useRef(undefined);
 
   const fetchYT = useOnSearch();
 

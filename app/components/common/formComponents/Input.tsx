@@ -1,4 +1,4 @@
-import { LegacyRef, forwardRef } from "react";
+import { Ref, forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 type InputTypes = {
@@ -20,7 +20,7 @@ const Input = (
     className,
     ...props
   }: InputTypes,
-  ref: LegacyRef<HTMLInputElement> | undefined
+  ref: Ref<HTMLInputElement> | undefined
 ) => {
   return (
     <input

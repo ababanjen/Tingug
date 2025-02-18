@@ -7,7 +7,7 @@ import SearchContainer from "./SearchContainer";
 
 const Search = () => {
   const { setExpandSearch, expandSearchBar } = useTYPlayerStore();
-  const ref: any = useRef();
+  const ref: any = useRef(undefined);
 
   useOutsideClick(
     (e) => {

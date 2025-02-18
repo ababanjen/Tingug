@@ -19,7 +19,7 @@ const Section2 = ({ top3Search }: Section2Types) => {
   } = useTYPlayerStore();
   const { push } = useRouter();
   const fetchYT = useOnSearch();
-  const searchRef: any = useRef();
+  const searchRef: any = useRef(undefined);
 
   useEffect(() => {
     if (focusInput && searchRef) {
